@@ -1,6 +1,51 @@
 import React, { Component } from "react";
 
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  Animated,
+  ScrollView,
+  Dimensions, 
+  PanResponder
+} from "react-native";
+import { SafeAreaView } from "react-navigation";
+
+let id = 0;
+const images = [
+  {
+    uri: "https://picsum.photos/536/354",
+    id: ++id,
+    name: "john",
+    age: 22
+  },
+  {
+    uri: "https://picsum.photos/536/354",
+    id: ++id,
+    name: "john",
+    age: 22
+  },
+  {
+    uri: "https://picsum.photos/536/354",
+    id: ++id,
+    name: "john",
+    age: 22
+  },
+  {
+    uri: "https://picsum.photos/536/354",
+    id: ++id,
+    name: "john",
+    age: 22
+  },
+  {
+    uri: "https://picsum.photos/536/354",
+    id: ++id,
+    name: "john",
+    age: 22
+  }
+];
 
 export default class PhotoStack extends Component {
   state = {
@@ -13,18 +58,43 @@ export default class PhotoStack extends Component {
     displayProf: 0
   };
   render() {
-    return (
-      <View>
-        <Image
-          source={{
-            uri: "https://picsum.photos/536/354"
+    let height = Dimensions.get("window").height-120;
+    let width = Dimensions.get("window").width;
+    let imageMapper = images.map(el => {
+      return (
+        <Animated.View
+          key={el.id}
+          style={{
+            padding: 10,
+            height: height,
+            width: width,
+            position: "absolute"
           }}
-          style={{ width: 300, height: 500 }}
-        />
+        >
+          <Image
+            source={{
+              uri: "https://picsum.photos/536/354"
+            }}
+            style={{
+              flex: 1,
+              height: null,
+              width: null,
+              borderRadius: 20,
+              resizeMode: "cover"
+            }}
+          />
 
-        <Text>{this.state.profiles[this.state.displayProf].name}</Text>
-        <Text>{this.state.profiles[this.state.displayProf].age}</Text>
-      </View>
+          <Text>{el.name}</Text>
+          <Text>{el.age}</Text>
+        </Animated.View>
+      );
+    });
+    return (
+<View style={{flex:1}}>
+
+        {imageMapper}
+</View>
+
     );
   }
 }
